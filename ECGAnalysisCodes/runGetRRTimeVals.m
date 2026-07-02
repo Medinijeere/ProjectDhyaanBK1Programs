@@ -1,12 +1,12 @@
-clear
-clc
+clear; clc
 
 [allSubjectNames,expDateList] = getDemographicDetails('BK1');
 [goodSubjectList,~,~] = getGoodSubjectsBK1;
 
-folderSourceString = 'C:\Users\medin\Documents\material';
-dataFolder = fullfile(folderSourceString,'Data');
-saveFolderName = fullfile(dataFolder,'savedData');
+folderSourceString = fileparts(fileparts(pwd)); % This should give the path where the BK1 folder is kept.
+dataFolder = fullfile(folderSourceString,'data');
+saveFolderName = 'savedRRData'; % save locally within the folder
+makeDirectory(saveFolderName);
 
 useTheseIndices = 1:length(goodSubjectList);
 
@@ -14,12 +14,10 @@ for i = 1:length(useTheseIndices)
 
     subjectName = goodSubjectList{useTheseIndices(i)};
 
-    disp(['Processing subject: ' subjectName])
+    disp(['Processing subject: ' subjectName]);
 
     expDate = expDateList{strcmp(subjectName,allSubjectNames)};
-
-    getRRTimeVals(subjectName,expDate,fullfile(folderSourceString,'Data','segmentedDataLong'),saveFolderName);
-
+    getRRTimeVals(subjectName,expDate,fullfile(folderSourceString,'data','segmentedDataLong'),saveFolderName);
 end
 
-disp('Finished')
+disp('Finished');

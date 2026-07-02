@@ -2,25 +2,29 @@ clear; close all
 
 [allSubjectNames,expDateList] =getDemographicDetails('BK1');
 [goodSubjectList, meditatorList, controlList] = getGoodSubjectsBK1;
-folderSourceString = 'C:\Users\medin\Documents\material';
-saveFolderName = 'ECGResultsSingleSubject';
+folderSourceString = fileparts(fileparts(pwd)); % This should give the path where the BK1 folder is kept.
 
-saveFileFlag     = 1;
+% Save data for all subjects
+saveFolderName = 'ECGResultsSingleSubject';
+saveFileFlag = 0;
 
 useTheseIndices = 1:length(goodSubjectList);
 
 for i=1:length(useTheseIndices)
-    fh=figure(1); clf(fh);
-    %fh.WindowState = 'maximized';
+    if saveFileFlag
+        fh=figure(1); clf(fh);
+        fh.WindowState = 'maximized';
+    end
+
     subjectName = goodSubjectList{useTheseIndices(i)};
     disp(['Analyzing for the subject ' subjectName]);
     expDate = expDateList{strcmp(subjectName,allSubjectNames)};
     displayECGDataSingleSubject(subjectName,expDate,folderSourceString);
     pause;
 
-    % if saveFileFlag
-    %     makeDirectory(saveFolderName);
-    %     fileNameTif = fullfile(saveFolderName,[subjectName badTrialNameStr '_badElecChoice' num2str(badElectrodeRejectionFlag) '_raw' num2str(plotRawTFFlag) '_sort' num2str(sortByBadTrialFlag) '.tif']);
-    %     print(fh,fileNameTif,'-dtiff','-r300');
-    % end
+    if saveFileFlag
+        makeDirectory(saveFolderName);
+        fileNameTif = fullfile(saveFolderName,[subjectName '.tif']);
+        print(fh,fileNameTif,'-dtiff','-r300');
+    end
 end

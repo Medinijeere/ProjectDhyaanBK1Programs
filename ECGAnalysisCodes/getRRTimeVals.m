@@ -1,8 +1,17 @@
+% This code uses a software called R_DECO. 
+% Moeyersons J, Amoni M, Van Huffel S, Willems R, Varon C. 2019. 
+% R-DECO: an open-source Matlab based graphical user interface for the
+% detection and correction of R-peaks.*PeerJ Computer Science* 5:e226
+% [https://doi.org/10.7717/peerj-cs.226]
+
+% Make sure that the location of R-DECO is in Matlab's path.
+% Needs Statistics and Machine Learning Toolbox
+
 function getRRTimeVals(subjectName, expDate, dataFolder, saveFolder)
 
 protocols = {'M1a','M1b','M1c','M2a','M2b','M2c','G1','G2','EO1','EO2','EC1','EC2'};
 
-addpath(genpath('C:\Users\medin\Documents\material\R-DECO\R-DECO'));
+% addpath(genpath('C:\Users\medin\Documents\material\R-DECO\R-DECO'));
 
 Fs = 1000;
 
@@ -83,23 +92,24 @@ for p = 1:length(protocols)
         %% SAVE
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-        saveDir = fullfile(saveFolder,subjectName,'EEG',expDate,...
-            protocolName,'segmentedData','LFP');
+        % saveDir = fullfile(saveFolder,subjectName,'EEG',expDate,...
+        %     protocolName,'segmentedData','LFP');
+        % 
+        % if ~exist(saveDir,'dir')
+        %     mkdir(saveDir)
+        % end
+        % 
+        % save(fullfile(saveDir,'Rpeaks.mat'),'data');
+        % 
+        % disp('      saved');
 
-        if ~exist(saveDir,'dir')
-            mkdir(saveDir)
-        end
-
-        save(fullfile(saveDir,'Rpeaks.mat'),'data');
-
-        disp('      saved')
+        saveFile = fullfile(saveFolder,[subjectName '_' protocolName '.mat']);
+        save(saveFile,'data');
 
     catch ME
 
         disp(['      FAILED: ' ME.message])
 
     end
-
 end
-
 end

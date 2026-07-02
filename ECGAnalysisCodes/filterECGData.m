@@ -10,8 +10,8 @@ filteringInfo.applyFilter = 1;
 %% CUTOFF FREQUENCIES
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-filteringInfo.HPF = 0;        % Hz
-filteringInfo.LPF = Inf;      % Hz
+filteringInfo.HPF = 1;       % Hz
+filteringInfo.LPF = 20;      % Hz
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% FILTER DESIGN
