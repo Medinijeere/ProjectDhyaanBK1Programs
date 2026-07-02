@@ -16,7 +16,7 @@ problamaticSubjects  = {'053DR'};
 goodSubjectList = setdiff(goodSubjectList,problamaticSubjects,'stable');
 
 % Channels
-channelNumbers = [66 69];
+channelNumbers = [1:64 66 69];
 for i=1:length(goodSubjectList)
     subjectName = goodSubjectList{i};
     disp(['Extracting Subject ' subjectName]);
